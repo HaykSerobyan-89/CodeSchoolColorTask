@@ -1,6 +1,7 @@
 data class Rgb(val r: Int, val g: Int, val b: Int)
 
-enum class Colors(val id: Int, private val color_hex: String, private val rgb: Rgb) {
+enum class ColorsEnum(val id: Int, private val colorHex: String, private val rgb: Rgb) {
+
     INDIAN_RED(1, "#CD5C5C", Rgb(205, 92, 92)),
     LIGHT_CORAL(2, "#F08080", Rgb(240, 128, 128)),
     SALMON(3, "#FA8072", Rgb(250, 128, 114)),
@@ -34,7 +35,22 @@ enum class Colors(val id: Int, private val color_hex: String, private val rgb: R
     DARK_KHAKI(32, "#BDB76B", Rgb(189, 183, 107)),
     DARK_MAGENTA(33, "#8B008B", Rgb(139, 0, 139));
 
+
+    companion object ColorsEnumMap {
+        private var colorsEnumMap = mutableMapOf<Int, ColorsEnum>()
+
+        init {
+            for (color in ColorsEnum.values()) {
+                colorsEnumMap[color.id] = color
+            }
+        }
+
+        fun getColorById(id: Int): ColorsEnum? {
+            return colorsEnumMap[id]
+        }
+    }
+
     override fun toString(): String {
-        return "$name(id=$id, color_hex='$color_hex', rgb=$rgb)"
+        return "$name(id=$id, colorHex='$colorHex', rgb=$rgb)"
     }
 }
